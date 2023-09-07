@@ -4,7 +4,6 @@ public class BigInteger
 
 	private int[] arrayInt;
 
-	private int     nbDigit;
 	private boolean isNegative;
 
 
@@ -12,7 +11,6 @@ public class BigInteger
 	{
 		this.initArrayDigit(0);
 
-		this.nbDigit    = 0;
 		this.isNegative = false;
 	}
 
@@ -20,20 +18,20 @@ public class BigInteger
 	{
 		this.initArrayDigit(size);
 
-		this.nbDigit    = 0;
 		this.isNegative = false;
 	}
 
 	public BigInteger ( int size, long number )
 	{
+		String numberString = number + "";
+
 		this.initArrayDigit(size);
 		this.isNegative = number < 0;
 
-		this.nbDigit    = (number + "").length();
-		this.fillArrayDigit(number + "");
+		for ( int cpt = 0; cpt < numberString.length(); cpt ++ )
+			this.arrayInt[cpt] = Integer.parseInt( numberString.charAt(cpt) + "" );
 
-		for ( int cpt = 0; cpt < this.nbDigit; cpt ++ )
-			this.arrayInt[cpt] = Integer.parseInt( number.charAt(cpt) + "" );
+		if ( this.arrayInt.length > numberString.length() ) this.arrayInt[numberString.length()] = -1;
 	}
 
 
@@ -46,17 +44,24 @@ public class BigInteger
 	}
 
 
-	public String toString ()
+	protected int returnNumber ()
 	{
 		String res = "";
 
 		if ( this.isNegative ) res += "-";
 
-		for ( int cpt = 0; cpt < this.nbDigit; cpt ++ )
-			res += this.arrayInt[cpt] + "";
+		for ( int cpt = 0; cpt < this.arrayInt.length; cpt ++ )
+		{
+			if ( this.arrayInt[cpt] < 0 ) return Integer.parseInt(res);
 
-		return res;
+			res += this.arrayInt[cpt] + "";
+		}
+
+		return Integer.parseInt(res);
 	}
+
+
+	public String toString () { return this.returnNumber() + ""; }
 
 
 	public static void main (String[] a)
