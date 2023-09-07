@@ -10,28 +10,21 @@ public class BigInteger
 	public BigInteger ()
 	{
 		this.initArrayDigit(0);
-
 		this.isNegative = false;
 	}
 
-	public BigInteger ( int size )
-	{
-		this.initArrayDigit(size);
-
-		this.isNegative = false;
-	}
 
 	public BigInteger ( int size, long number )
 	{
-		String numberString = number + "";
-
 		this.initArrayDigit(size);
-		this.isNegative = number < 0;
+		this.addNumberArray(number);
+	}
 
-		for ( int cpt = 0; cpt < numberString.length(); cpt ++ )
-			this.arrayInt[cpt] = Integer.parseInt( numberString.charAt(cpt) + "" );
 
-		if ( this.arrayInt.length > numberString.length() ) this.arrayInt[numberString.length()] = -1;
+	public BigInteger ( long number )
+	{
+		this.initArrayDigit((number + "").length());
+		this.addNumberArray(number);
 	}
 
 
@@ -44,17 +37,36 @@ public class BigInteger
 	}
 
 
-	protected int returnNumber ()
+	public boolean updateNumber ( int number ) { return this.addNumberArray(number); }
+
+
+	private boolean addNumberArray ( long number )
+	{
+		String numberString = number + "";
+
+		this.isNegative = number < 0;
+
+		if ( numberString.length() > this.arrayInt.length ) return false;
+
+		for ( int cpt = 0; cpt < numberString.length(); cpt ++ )
+			this.arrayInt[cpt] = Integer.parseInt( numberString.charAt(cpt) + "" );
+
+		if ( this.arrayInt.length > numberString.length() ) this.arrayInt[numberString.length()] = -1;
+
+		return true;
+	}
+
+
+	public int returnNumber ()
 	{
 		String res = "";
 
-		if ( this.isNegative ) res += "-";
+		res = this.isNegative ? "-0" : "0";
 
 		for ( int cpt = 0; cpt < this.arrayInt.length; cpt ++ )
 		{
 			if ( this.arrayInt[cpt] < 0 ) return Integer.parseInt(res);
-
-			res += this.arrayInt[cpt] + "";
+			res += (this.arrayInt[cpt] + "");
 		}
 
 		return Integer.parseInt(res);
@@ -66,11 +78,9 @@ public class BigInteger
 
 	public static void main (String[] a)
 	{
-		BigInteger test = new BigInteger(6, 256);
+		BigInteger test = new BigInteger(6,5263);
 
 		System.out.println( test );
 	}
-
-
 
 }
