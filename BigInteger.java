@@ -31,17 +31,10 @@ public class BigInteger
 
 		this.nbDigit    = (number + "").length();
 		this.fillArrayDigit(number + "");
+
+		for ( int cpt = 0; cpt < this.nbDigit; cpt ++ )
+			this.arrayInt[cpt] = Integer.parseInt( number.charAt(cpt) + "" );
 	}
-
-	public BigInteger ( int size, int number )
-	{
-		this.initArrayDigit(size);
-		this.isNegative = number < 0; 
-
-		this.nbDigit    = (number + "").length();
-		this.fillArrayDigit(number + "");
-	}
-
 
 
 	private void initArrayDigit ( int size )
@@ -50,12 +43,6 @@ public class BigInteger
 			this.arrayInt = new int[BigInteger.MIN_DIG];
 		else
 			this.arrayInt = new int[size];
-	}
-
-	private void fillArrayDigit ( String number )
-	{
-		for ( int cpt = 0; cpt < this.nbDigit; cpt ++ )
-			this.arrayInt[cpt] = Integer.parseInt( number.charAt(cpt) + "" );
 	}
 
 
