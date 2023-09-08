@@ -77,17 +77,23 @@ public class BigInteger
 		int[] numArray1, numArray2;
 
 		String num1, num2;
-		int    sizeNUmber;
+		int    sizeNumber;
 
 
 		num1 = this  .returnNumber();
 		num2 = number.returnNumber();
 
-		sizeNUmber = num1.length() >= num2.length() ? num1.length() : num2.length();
+		sizeNumber = num1.length() >= num2.length() ? num1.length() : num2.length();
 
+		numArray1 = new int[sizeNumber];
+		numArray2 = new int[sizeNumber];
 
+		for ( int cpt = sizeNumber - 1; cpt >= 0; cpt -- )
+		{
+			numArray1[cpt] = 
+		}
 
-		return this;
+		return ;
 	}
 
 
