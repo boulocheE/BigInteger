@@ -83,11 +83,12 @@ public class BigInteger
 		num1 = this  .returnNumber();
 		num2 = number.returnNumber();
 
-		sizeNumber = num1.length() >= num2.length() ? num1.length() : num2.length();
+		sizeNumber  = 1;
+		sizeNumber += num1.length() >= num2.length() ? num1.length() : num2.length();
 
-		numArray1   = new int[sizeNumber    ];
-		numArray2   = new int[sizeNumber    ];
-		numResArray = new int[sizeNumber + 1];
+		numArray1   = new int[sizeNumber];
+		numArray2   = new int[sizeNumber];
+		numResArray = new int[sizeNumber];
 
 		for ( int cpt = num1.length(); cpt < sizeNumber; cpt ++ )
 			num1 = "0" + num1;
@@ -118,23 +119,14 @@ public class BigInteger
 
 	private int[] retainAddition ( int[] array )
 	{
-		int   retain;
-
-		retain = 0;
-
-		// System.out.println( array.length );
-
 		for ( int cpt = array.length - 1; cpt >= 0; cpt -- )
 		{
-			System.out.println( "cpt : " + cpt + " " + array[cpt] );
-			array[cpt] += retain;
-
-			retain = 0;
-
-			if ( array[cpt] >= 10 ) { retain = 1; array[cpt] -= 10; }
+			if ( array[cpt] >= 10 )
+			{
+				array[cpt-1] += 1;
+				array[cpt  ] -= 10;
+			}
 		}
-
-		array[0] = retain;
 
 		return array;
 	}
@@ -145,12 +137,10 @@ public class BigInteger
 
 	public static void main (String[] a)
 	{
-		BigInteger a1 = new BigInteger(2,57);
-		BigInteger a2 = new BigInteger(2, 50);
+		BigInteger a2 = new BigInteger(2,57);
+		BigInteger a1 = new BigInteger(1, 3);
 
 		a1.addition(a2);
-
-		// System.out.println( test );
 	}
 
 }
