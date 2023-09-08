@@ -86,14 +86,10 @@ public class BigInteger
 		sizeNUmber = num1.length() >= num2.length() ? num1.length() : num2.length();
 
 
+
 		return this;
 	}
 
-
-	private void addNumber ( BigInteger otherArrayNumber, int position, int number)
-	{
-		otherArrayNumber.arrayInt[position] = number;
-	}
 
 	public String toString () { return this.returnNumber() + ""; }
 
