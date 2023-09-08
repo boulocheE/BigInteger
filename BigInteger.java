@@ -60,7 +60,7 @@ public class BigInteger
 	{
 		String res;
 
-		res = this.isNegative ? "-0" : "";
+		res = this.isNegative ? "-" : "";
 
 		for ( int cpt = 0; cpt < this.arrayInt.length; cpt ++ )
 		{
@@ -76,7 +76,7 @@ public class BigInteger
 	{
 		int[] numArray1, numArray2, numResArray;
 
-		String num1, num2;
+		String num1,     num2;
 		int    sizeNumber;
 
 
@@ -85,24 +85,58 @@ public class BigInteger
 
 		sizeNumber = num1.length() >= num2.length() ? num1.length() : num2.length();
 
-		numArray1   = new int[sizeNumber];
-		numArray2   = new int[sizeNumber];
-		numResArray = new int[sizeNumber];
+		numArray1   = new int[sizeNumber    ];
+		numArray2   = new int[sizeNumber    ];
+		numResArray = new int[sizeNumber + 1];
 
-		for ( int cpt = sizeNumber - 1; cpt >= 0; cpt -- )
+		for ( int cpt = num1.length(); cpt < sizeNumber; cpt ++ )
+			num1 = "0" + num1;
+
+		for ( int cpt = num2.length(); cpt < sizeNumber; cpt ++ )
+			num2 = "0" + num2;
+
+		for ( int cpt = 0; cpt < sizeNumber; cpt ++ )
 		{
-			numArray1[cpt] = cpt >= num1.length() ? 0 : Integer.parseInt( num1.charAt(cpt) + "" );
-			numArray2[cpt] = cpt >= num2.length() ? 0 : Integer.parseInt( num2.charAt(cpt) + "" );
+			numArray1  [cpt] = Integer.parseInt( num1.charAt(cpt) + "" );
+			numArray2  [cpt] = Integer.parseInt( num2.charAt(cpt) + "" );
+			numResArray[cpt] = 0;
 		}
+
+		numResArray[0] = 0;
 
 		for ( int cpt = 0; cpt < sizeNumber; cpt ++ )
 			numResArray[cpt] = numArray1[cpt] + numArray2[cpt];
 
+		this.retainAddition(numResArray);
+
 		String res = "";
 		for ( int cpt = 0; cpt < numArray1.length; cpt ++ ) res += numResArray[cpt] + "";
-		System.out.println( res + " " + number.returnNumber().length() + "");
+		System.out.println( res + " " );
 
 		return this;
+	}
+
+	private int[] retainAddition ( int[] array )
+	{
+		int   retain;
+
+		retain = 0;
+
+		// System.out.println( array.length );
+
+		for ( int cpt = array.length - 1; cpt >= 0; cpt -- )
+		{
+			System.out.println( "cpt : " + cpt + " " + array[cpt] );
+			array[cpt] += retain;
+
+			retain = 0;
+
+			if ( array[cpt] >= 10 ) { retain = 1; array[cpt] -= 10; }
+		}
+
+		array[0] = retain;
+
+		return array;
 	}
 
 
@@ -111,8 +145,8 @@ public class BigInteger
 
 	public static void main (String[] a)
 	{
-		BigInteger a1 = new BigInteger(2,50);
-		BigInteger a2 = new BigInteger(2, 10);
+		BigInteger a1 = new BigInteger(2,57);
+		BigInteger a2 = new BigInteger(2, 50);
 
 		a1.addition(a2);
 
