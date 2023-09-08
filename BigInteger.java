@@ -60,7 +60,7 @@ public class BigInteger
 	{
 		String res;
 
-		res = this.isNegative ? "-0" : "0";
+		res = this.isNegative ? "-0" : "";
 
 		for ( int cpt = 0; cpt < this.arrayInt.length; cpt ++ )
 		{
@@ -74,7 +74,7 @@ public class BigInteger
 
 	public BigInteger addition ( BigInteger number )
 	{
-		int[] numArray1, numArray2;
+		int[] numArray1, numArray2, numResArray;
 
 		String num1, num2;
 		int    sizeNumber;
@@ -85,15 +85,24 @@ public class BigInteger
 
 		sizeNumber = num1.length() >= num2.length() ? num1.length() : num2.length();
 
-		numArray1 = new int[sizeNumber];
-		numArray2 = new int[sizeNumber];
+		numArray1   = new int[sizeNumber];
+		numArray2   = new int[sizeNumber];
+		numResArray = new int[sizeNumber];
 
 		for ( int cpt = sizeNumber - 1; cpt >= 0; cpt -- )
 		{
-			numArray1[cpt] = 
+			numArray1[cpt] = cpt >= num1.length() ? 0 : Integer.parseInt( num1.charAt(cpt) + "" );
+			numArray2[cpt] = cpt >= num2.length() ? 0 : Integer.parseInt( num2.charAt(cpt) + "" );
 		}
 
-		return ;
+		for ( int cpt = 0; cpt < sizeNumber; cpt ++ )
+			numResArray[cpt] = numArray1[cpt] + numArray2[cpt];
+
+		String res = "";
+		for ( int cpt = 0; cpt < numArray1.length; cpt ++ ) res += numResArray[cpt] + "";
+		System.out.println( res + " " + number.returnNumber().length() + "");
+
+		return this;
 	}
 
 
@@ -105,7 +114,7 @@ public class BigInteger
 		BigInteger a1 = new BigInteger(2,50);
 		BigInteger a2 = new BigInteger(2, 10);
 
-		System.out.println( a1.addition(a2) );
+		a1.addition(a2);
 
 		// System.out.println( test );
 	}
