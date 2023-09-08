@@ -56,7 +56,7 @@ public class BigInteger
 	}
 
 
-	public int returnNumber ()
+	private String returnNumber ()
 	{
 		String res;
 
@@ -64,72 +64,30 @@ public class BigInteger
 
 		for ( int cpt = 0; cpt < this.arrayInt.length; cpt ++ )
 		{
-			if ( this.arrayInt[cpt] < 0 ) return Integer.parseInt(res);
+			if ( this.arrayInt[cpt] < 0 ) return res;
 			res += (this.arrayInt[cpt] + "");
 		}
 
-		return Integer.parseInt(res);
+		return res;
 	}
 
 
 	public BigInteger addition ( BigInteger number )
 	{
-		BigInteger n1, n2, otherNumber;
-		int        retain, difference;
-		int        resSum;
+		int[] numArray1, numArray2;
 
-		if ( this.arrayInt.length >= number.arrayInt.length ) { n1 = this; n2 = number; }
-		else                                                  { n2 = this; n1 = number; }
-
-		otherNumber = new BigInteger(n1.arrayInt.length + 1);
+		String num1, num2;
+		int    sizeNUmber;
 
 
-		retain     = 0;
-		resSum     = 0;
-		difference = n1.arrayInt.length - n2.arrayInt.length;
+		num1 = this  .returnNumber();
+		num2 = number.returnNumber();
 
-		for ( int cpt = n2.arrayInt.length; cpt < n2.arrayInt.length; cpt -- )
-		{
-			resSum = n2.arrayInt[cpt] + n1.arrayInt[cpt + difference] + retain;
+		sizeNUmber = num1.length() >= num2.length() ? num1.length() : num2.length();
 
-			retain  = resSum >= 10 ? 1 : 0;
-			resSum %= 10;
-
-			otherNumber.addNumber(number, (cpt + difference), resSum);
-		}
-
-		for ( int cpt = difference - 1; cpt <= 0; cpt -- )
-		{
-			resSum = n1.arrayInt[cpt] + retain;
-
-			retain  = resSum >= 10 ? 1 : 0;
-			retain %= 10;
-
-			otherNumber.addNumber(number, cpt, resSum);
-		}
 
 		return this;
 	}
-
-	public BigInteger addition ( long number ) { return addition( new BigInteger(number) ); }
-
-	public BigInteger subtraction ( BigInteger number )
-	{ return this;}
-
-	public BigInteger subtraction ( long number )
-	{ return this; }
-
-	public BigInteger division ( BigInteger number )
-	{ return this; }
-
-	public BigInteger division ( long number )
-	{ return this; }
-
-	public BigInteger multiplication ( BigInteger number )
-	{ return this; }
-
-	public BigInteger multiplication ( long number )
-	{ return this; }
 
 
 	private void addNumber ( BigInteger otherArrayNumber, int position, int number)
@@ -142,8 +100,8 @@ public class BigInteger
 
 	public static void main (String[] a)
 	{
-		BigInteger a1 = new BigInteger(3,50);
-		BigInteger a2 = new BigInteger(2, 1);
+		BigInteger a1 = new BigInteger(2,50);
+		BigInteger a2 = new BigInteger(2, 10);
 
 		System.out.println( a1.addition(a2) );
 
