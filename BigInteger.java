@@ -117,6 +117,62 @@ public class BigInteger
 		return this;
 	}
 
+
+	public BigInteger substraction ( BigInteger number )
+	{
+		int[] numArray1, numArray2, numResArray;
+
+		String num1, num2;
+		int    sizeNumber;
+
+		int    retain;
+
+
+		num1 = this  .returnNumber();
+		num2 = number.returnNumber();
+
+		sizeNumber  = 1;
+		sizeNumber += num1.length() >= num2.length() ? num1.length() : num2.length();
+
+		numArray1   = new int[sizeNumber];
+		numArray2   = new int[sizeNumber];
+		numResArray = new int[sizeNumber];
+
+		for ( int cpt = num1.length(); cpt < sizeNumber; cpt ++ )
+			num1 = "0" + num1;
+
+		for ( int cpt = num2.length(); cpt < sizeNumber; cpt ++ )
+			num2 = "0" + num2;
+
+		for ( int cpt = 0; cpt < sizeNumber; cpt ++ )
+		{
+			numArray1  [cpt] = Integer.parseInt( num1.charAt(cpt) + "" );
+			numArray2  [cpt] = Integer.parseInt( num2.charAt(cpt) + "" );
+			numResArray[cpt] = 0;
+		}
+
+		numResArray[0] = 0;
+
+		retain = 0;
+		for ( int cpt = 0; cpt < sizeNumber; cpt ++ )
+		{
+			numArray2[cpt] += retain;
+
+			if ( numArray1[cpt] < numArray2[cpt] ) { numArray1[cpt] += 10; retain = 1; };
+
+			numResArray[cpt] = numArray1[cpt] - numArray2[cpt];
+
+			retain = 0;
+		}
+
+		String res = "";
+		for ( int cpt = 0; cpt < numArray1.length; cpt ++ ) res += numResArray[cpt] + "";
+		System.out.println( res + " " );
+
+		return this;
+	}
+
+
 	private int[] retainAddition ( int[] array )
 	{
 		for ( int cpt = array.length - 1; cpt >= 0; cpt -- )
@@ -137,10 +193,10 @@ public class BigInteger
 
 	public static void main (String[] a)
 	{
-		BigInteger a2 = new BigInteger(2,57);
-		BigInteger a1 = new BigInteger(1, 3);
+		BigInteger a2 = new BigInteger(2,3);
+		BigInteger a1 = new BigInteger(2, 6);
 
-		a1.addition(a2);
+		a2.substraction(a1);
 	}
 
 }
